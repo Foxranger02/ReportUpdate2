@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Mirror</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+table{
+    border : 1px solid rgba(0, 0, 0, 0.9);
+    padding: 10px 25px 10px 25px;
+    border-collapse: collapse;
+    border-radius: 20px;
+}
+table.center{
+    margin-left: auto;
+    margin-right: auto;
+}
+th{
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    text-shadow: 2px 1px black;
+    padding-left: 20px;
+    padding-right: 20px;
+    transition-duration:0.4s;
+    padding: 10px;
+    border-right:2px solid white;
+    
+
+}
+th:hover{
+    transform: scale(1.1);
+    background-color:  rgba(0, 0, 0, 0.9);
+}
+
+td{
+    background-color: rgba(0, 0, 0, 0.8);
+    color:rgba(255, 255, 255, 0.9);
+    padding-left: 20px;
+    padding-right: 20px;
+    padding: 20px;
+    
+    
+}
+
+td:hover{
+    background-color: rgba(0, 0, 0, 0.9);
+    
+}
+
+.t0,.t1,.t2{
+    border-right:2px solid white;
+}
+body{
+    background-image:url('https://img.freepik.com/premium-photo/abstract-colorful-background-pastel-backdrop_106885-3104.jpg?w=1380');
+    background-size: cover;
+}
+.h1,.h2,.h3{
+    border:none;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html {
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+}
+*,
+*::after,
+*::before {
+box-sizing: inherit;
+margin: 0;
+padding: 0;
+}
+
+.container {
+background-color: transparent;
+display: flex;
+justify-content: center;
+align-items: flex-start;
+
+}
+
+.menu {
+display: grid;
+grid-template-rows: 40px max-content;
+gap: 10px;
+}
+
+.toggle {
+all: unset;
+background-color: dodgerblue;
+color: white;
+width: 150px;
+padding: 10px;
+font-weight: 700;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.toggle::after {
+content: "";
+width: 6px;
+height: 6px;
+border-width: 0 3px 3px 0;
+border-style: solid;
+transform: rotate(45deg);
+transition: 0.4s;
+}
+
+.list {
+background-color: white;
+color: #444;
+list-style: none;
+display: grid;
+grid-template-rows: repeat(4, 40px);
+border-radius: 5px;
+overflow: hidden;
+height: 0;
+transition: 0.4s;
+}
+
+.list a{
+text-decoration: none;
+color:#444;
+}
+
+.list-item {
+display: flex;
+align-items: center;
+padding-left: 10px;
+transition: 0.4s, transform 0.4s var(--delay);
+transform: translateX(-100%);
+user-select: none;
+cursor: pointer;
+}
+
+.list-item:hover {
+background-color: dodgerblue;
+color: #fff;
+}
+
+.toggle:focus::after {
+transform: rotate(225deg);
+}
+
+.toggle:focus ~ .list {
+height: 160px;
+}
+
+.toggle:focus ~ .list .list-item {
+transform: translateX(0);
+}
+.test{
+display: grid;
+grid-template-columns: auto auto;
+margin-top: 20px;
+padding: 20px;
+}
+
+.form{
+    text-align: center;
+}
+
+h1{
+
+    color:rgba(0, 0, 0, 0.8);
+
+}
+#about{
+    text-align: center;
+    margin: 40px;
+    font-size: 1em;
+}
+</style>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    
+
+    function get(){
+            var date = {};
+            var name = {};
+            var time = {};
+            $.ajax({
+                url:"",
+                type : 'get',
+                contentType : 'application/json',
+                data : {
+                    datau : "Hi"
+                } ,
+                success : function(response){
+                    // console.log(response.seconds)
+                    date = response.report.date
+                    name = response.report.name
+                    time = response.report.time
+                    document.querySelector("tbody").innerHTML = "";
+                    console.log((response.l)-5,response.l,response.report)
+                    for(let i=(response.l)-1;i>=(response.l)-5;i--){
+                        
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `<td class='t0'>${date[i]}</td><td class='t1'>${name[i]}</td><td class='t2'>${time[i]}</td><td><img src='data:image/png;base64,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' height = '100px' width='100px'></td>` ;
+                        
+                             
+                        document.querySelector("tbody").append(tr);
+                        
+                    }
+                   
+                    // document.querySelector("h1").innerHTML = JSON.stringify(response.seconds);
+                    // console.log(date[1],date[2],date[3],name[1],name[2],name[3],time[1],time[2]);
+                }
+            
+            });
+           
+        };
+
+    document.addEventListener("DOMContentLoaded",function(){
+        setInterval(get,1000);
+    })
+
+</script>
+<body>
+    <div class="test">
+        <div>
+            <h1 >Smart Mirror - Handwashing Report </h1>
+        </div>
+    
+        <div class="container">
+            <div class="menu">
+              <button class="toggle">Topics</button>
+              <ul class="list">
+                <li class="list-item" style="--delay:0.2s"><a href="#about">About Us</a></li>
+                <li class="list-item" style="--delay:0.4s"><a href="">Prototype</a></li>
+                <li class="list-item" style="--delay:0.6s"><a href="">Our Achivements</a></li>
+                <li class="list-item" style="--delay:0.8s"><a href="">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+        
+        </div>
+    <table class="center">
+        <thead>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Time</th>
+            <th>Image</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <form action="/report" class="form">
+        <button>
+            See Full report
+        </button>
+    </form>
+
+    <div id="about">
+        <h1>
+            More About US
+        </h1>
+        <img src="https://kpriet.ac.in/asset/frontend/images/clubs/arc.png" alt="" height="150px" width="230px">
+        <p>
+            We are the members of Aviation and Robotics Club of KPR Institute of Engieering and Technology . We do many stuff like this and won many national events .
+        </p>
+        <br><br>
+        <p>Follow us on</p>
+        <br>
+        <a href="https://www.instagram.com/kpr_arc/?hl=en" target="_blank"><img src="{{url_for('insta')}}" alt="" height="50px" width="50px"></a>
+    </div>
+
+</body>
+</html>
